@@ -18,11 +18,11 @@ class Board extends React.Component {
     return <Square value={i}/>;
   }
 
-    render() {
-        // the Board renders 9 squares
-        const status = 'Next player: X';
-        let sizeArray = [...Array(3).keys()];
-        let rowLength = sizeArray.length;
+  render() {
+    // the Board renders 9 squares
+    const status = 'Next player: X';
+    let boardSize = this.props.size || 3;  // The passed in value of "size" (default: 3)
+    let sizeArray = [...Array(boardSize).keys()];  // Build an array of length rowLength containing the range, e.g. [0, 1, 2] for the default size of 3.
 
     return (
       <div>
@@ -50,7 +50,7 @@ class Game extends React.Component {
     return (
       <div className="game">
         <div className="game-board">
-          <Board />
+          <Board size={3}/>
         </div>
         <div className="game-info">
           <div>{/* status */}</div>
