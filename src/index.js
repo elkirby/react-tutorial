@@ -19,29 +19,29 @@ class Board extends React.Component {
     }
 
     render() {
+        // the Board renders 9 squares
         const status = 'Next player: X';
+        let sizeArray = [...Array(3).keys()];
+        let rowLength = sizeArray.length;
 
-        return (
-            <div>
-                <div className="status">{status}</div>
-                <div className="board-row">
-                    {this.renderSquare(0)}
-                    {this.renderSquare(1)}
-                    {this.renderSquare(2)}
-                </div>
-                <div className="board-row">
-                    {this.renderSquare(3)}
-                    {this.renderSquare(4)}
-                    {this.renderSquare(5)}
-                </div>
-                <div className="board-row">
-                    {this.renderSquare(6)}
-                    {this.renderSquare(7)}
-                    {this.renderSquare(8)}
-                </div>
-            </div>
-        );
-    }
+    return (
+      <div>
+        <div className="status">{status}</div>
+        {
+          sizeArray.map((current_row_index) =>
+            // Build the row
+            <div className="board-row">
+              {sizeArray.map((current_column_index) =>
+                // render each square for the row
+              /* displayed number is the zero-indexed count of the current cell's place in the total board,
+                 equal to how many rows precede this one multiplied by the number of cells per row, plus how many cells precede the current one in the row.
+              Example: For the 3rd row, 2nd column with a board size of 3: 2 rows and 1 cell precede the current cell
+                       => (2 * 3) + 1 => 6 + 1 => 7 */
+                this.renderSquare((current_row_index * boardSize) + current_column_index))}
+            </div>)
+        }
+      </div>);
+  }
 }
 
 
