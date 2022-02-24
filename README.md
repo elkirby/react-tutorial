@@ -1,6 +1,9 @@
-# Getting Started with Create React App
+# React Tutorial
+Following the official ReactJS [Intro to React](https://reactjs.org/tutorial/tutorial.html) tutorial of building a rudimentary tic-tac-toe game.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Note**: My own customizations/deviations from the tutorial (also termed "*acts of hubris*") are annotated in the git commit log with the message prefix `[CUSTOM]`
+
+This project was (initially) bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
