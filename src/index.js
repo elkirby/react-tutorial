@@ -2,18 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-class Square extends React.Component {
-  // The Square component renders a single <button> and the Board renders 9 squares.
-  render() {
+function Square(props) {
+  /* The Square function component renders a single <button> and the Board component renders 9 squares.
+
+     A function component can be thought of as a way of turning a class with attributes into a function where
+     its arguments are the current attributes' state.
+   */
     return (
-      <button
-        className="square"
-        onClick={() => this.props.onClick()}
-      >
-        {this.props.value  /* Display the current value of the `value` prop */}
+      <button className="square" onClick={props.onClick}>
+        {props.value  /* Display the current value of the `value` prop */}
       </button>
     );
-  }
 }
 
 class Board extends React.Component {
