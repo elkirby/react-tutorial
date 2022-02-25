@@ -19,9 +19,10 @@ class Board extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      squares: Array(9).fill(null),
+      squares: Array(this.props.size ^ 2).fill(null),
       xIsNext: true,
     };
+    this.state.nextPlayer = this.state.playerOne;
   }
 
   handleClick(i) {
@@ -29,8 +30,12 @@ class Board extends React.Component {
      Provides the functionality for the board when a square is clicked
      */
     const squares = this.state.squares.slice();  // Creates a copy of the existing array for immutability
+    squares[i] = this.state.nextPlayer;
     squares[i] = this.state.xIsNext ? 'X' : 'O';
-    this.setState({squares: squares, xIsNext: !this.state.xIsNext});
+    this.setState({
+      squares: squares,
+      xIsNext: !this.state.xIsNext,
+    });
   }
 
   renderSquare(i) {
@@ -43,7 +48,7 @@ class Board extends React.Component {
 
   render() {
     // the Board renders 9 squares
-    const status = `Next player: ${this.state.xIsNext ? 'X' : 'O'}`;
+    const status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
     let boardSize = this.props.size || 3;  // The passed in value of "size" (default: 3)
     let sizeArray = [...Array(boardSize).keys()];  // Build an array of length rowLength containing the range, e.g. [0, 1, 2] for the default size of 3.
 
