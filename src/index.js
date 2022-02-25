@@ -4,10 +4,20 @@ import './index.css';
 
 class Square extends React.Component {
   // The Square component renders a single <button> and the Board renders 9 squares.
+  constructor(props) {
+    /* Initialize the Square component */
+
+    // Initialize the superclass
+    super(props);
+    this.state = {
+      value: null,
+    };
+  }
+
   render() {
     return (
-      <button className="square">
-        {this.props.value}
+      <button className="square" onClick={() => {this.setState({value: 'X'})}}>
+        {this.state.value  /* Display the current `state` of `value */}
       </button>
     );
   }
