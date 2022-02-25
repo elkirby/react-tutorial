@@ -20,7 +20,8 @@ class Board extends React.Component {
     super(props);
     this.state = {
       squares: Array(this.props.size ^ 2).fill(null),
-      xIsNext: true,
+      playerOne: props.playerOne || 'X',
+      playerTwo: props.playerTwo || 'O',
     };
     this.state.nextPlayer = this.state.playerOne;
   }
@@ -31,11 +32,19 @@ class Board extends React.Component {
      */
     const squares = this.state.squares.slice();  // Creates a copy of the existing array for immutability
     squares[i] = this.state.nextPlayer;
-    squares[i] = this.state.xIsNext ? 'X' : 'O';
-    this.setState({
-      squares: squares,
-      xIsNext: !this.state.xIsNext,
-    });
+    this.setState({squares: squares, nextPlayer: this.getNextTurn()});
+  }
+
+  getNextTurn() {
+    /* Returns whose turn is next */
+
+    let nextPlayer = this.state.playerTwo;  // first turn -> next player will be player two
+
+    // Unless it's not the first turn, then check if it's actually player one's turn
+    if (this.state.nextPlayer == this.state.playerTwo) {
+      nextPlayer = this.state.playerOne;
+    }
+    return nextPlayer;
   }
 
   renderSquare(i) {
@@ -48,7 +57,7 @@ class Board extends React.Component {
 
   render() {
     // the Board renders 9 squares
-    const status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+    const status = `Next player: ${this.state.nextPlayer}`;
     let boardSize = this.props.size || 3;  // The passed in value of "size" (default: 3)
     let sizeArray = [...Array(boardSize).keys()];  // Build an array of length rowLength containing the range, e.g. [0, 1, 2] for the default size of 3.
 
@@ -78,7 +87,7 @@ class Game extends React.Component {
     return (
       <div className="game">
         <div className="game-board">
-          <Board size={3}/>
+          <Board size={3} playerOne={"🤡"} playerTwo={"🤖"}/>
         </div>
         <div className="game-info">
           <div>{/* status */}</div>
