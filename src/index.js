@@ -4,28 +4,41 @@ import './index.css';
 
 class Square extends React.Component {
   // The Square component renders a single <button> and the Board renders 9 squares.
-  constructor(props) {
-    /* Initialize the Square component */
-
-    // Initialize the superclass
-    super(props);
-    this.state = {
-      value: null,
-    };
-  }
-
   render() {
     return (
-      <button className="square" onClick={() => {this.setState({value: 'X'})}}>
-        {this.state.value  /* Display the current `state` of `value */}
+      <button
+        className="square"
+        onClick={() => this.props.onClick()}
+      >
+        {this.props.value  /* Display the current value of the `value` prop */}
       </button>
     );
   }
 }
 
 class Board extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      squares: Array(9).fill(null),
+    };
+  }
+
+  handleClick(i) {
+    /*
+     Provides the functionality for the board when a square is clicked
+     */
+    const squares = this.state.squares.slice();  // Creates a copy of the existing array for immutability
+    squares[i] = 'X';
+    this.setState({squares: squares});
+  }
+
   renderSquare(i) {
-    return <Square value={i}/>;
+    return (<Square
+        value={this.state.squares[i]}
+        onClick={() => this.handleClick(i)}
+      />
+    );
   }
 
   render() {
@@ -43,10 +56,10 @@ class Board extends React.Component {
             <div className="board-row">
               {sizeArray.map((current_column_index) =>
                 // render each square for the row
-              /* displayed number is the zero-indexed count of the current cell's place in the total board,
-                 equal to how many rows precede this one multiplied by the number of cells per row, plus how many cells precede the current one in the row.
-              Example: For the 3rd row, 2nd column with a board size of 3: 2 rows and 1 cell precede the current cell
-                       => (2 * 3) + 1 => 6 + 1 => 7 */
+                /* displayed number is the zero-indexed count of the current cell's place in the total board,
+                   equal to how many rows precede this one multiplied by the number of cells per row, plus how many cells precede the current one in the row.
+                Example: For the 3rd row, 2nd column with a board size of 3: 2 rows and 1 cell precede the current cell
+                         => (2 * 3) + 1 => 6 + 1 => 7 */
                 this.renderSquare((current_row_index * boardSize) + current_column_index))}
             </div>)
         }
